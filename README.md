@@ -1,6 +1,6 @@
-# ⚾ LMB Scout Lab — 2024–2026
+# ⚾ LMB Scouting Intelligence
 
-Interactive, mobile-friendly scouting workbench for **Liga Mexicana de Béisbol (LMB)** hitters and pitchers. Built with Python, Streamlit, Pandas and Plotly. No time-limited software trial.
+Free interactive LMB scouting dashboard for hitters and pitchers across the 2024–2026 seasons.
 
 ## Features
 
