@@ -115,6 +115,7 @@ def parse_pitchers(frame):
 def built_in():
     hit = parse_hitters(pd.read_csv(ROOT / "data/lmb_hitters_2024_2026_sample.csv"))
     old = pd.read_csv(ROOT / "data/lmb_pitchers_2024_2025_sample.csv", dtype={"ip_baseball":str})
+    old["league"] = "LMB"
     curr = pd.read_csv(ROOT / "data/lmb_pitchers_2026_sample.csv", dtype={"ip_baseball":str})
     curr = curr[curr.league.eq("LMB")].copy()
     return hit, parse_pitchers(pd.concat([old, curr], ignore_index=True))
