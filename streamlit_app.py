@@ -4,7 +4,7 @@ import pandas as pd
 import plotly.express as px
 import streamlit as st
 
-st.set_page_config(page_title="LMB Scout Lab | 2024–2026", page_icon="⚾", layout="wide")
+st.set_page_config(page_title="LMB Scouting Intelligence", page_icon="⚾", layout="wide")
 ROOT = Path(__file__).parent
 YEARS = [2024, 2025, 2026]
 SOURCES = {
@@ -143,7 +143,7 @@ with st.sidebar:
     st.download_button("Download pitcher sample CSV", safe_csv(pitchers[PITCHING_FIELDS]),
                        "lmb_pitchers_2024_2026_sample.csv", mime="text/csv")
 
-st.title("⚾ LMB | Scouting Intelligence")
+st.title("⚾ LMB Scouting Intelligence")
 st.caption("Liga Mexicana de Béisbol • 2024–2026 • Hitters + Pitchers • Historical sample, not a live or complete roster database")
 mode = st.selectbox("Choose workspace", ["📍 Overview", "🏏 Hitter Finder", "⚾ Pitcher Finder",
     "⚔️ Head-to-Head", "📈 Three-Year Trends", "🎯 Scout Rankings",
