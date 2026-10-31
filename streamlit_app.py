@@ -115,7 +115,7 @@ def parse_pitchers(frame):
 def built_in():
     hit = parse_hitters(pd.read_csv(ROOT / "data/lmb_hitters_2024_2026_sample.csv"))
     old = pd.read_csv(ROOT / "data/lmb_pitchers_2024_2025_sample.csv", dtype={"ip_baseball":str})
-    curr = pd.read_csv(ROOT / "data/mexican_pitchers_2026_snapshot.csv", dtype={"ip_baseball":str})
+    curr = pd.read_csv(ROOT / "data/lmb_pitchers_2026_sample.csv", dtype={"ip_baseball":str})
     curr = curr[curr.league.eq("LMB")].copy()
     return hit, parse_pitchers(pd.concat([old, curr], ignore_index=True))
 
@@ -187,15 +187,14 @@ elif mode == "🏏 Hitter Finder":
         view = view[view.player.str.contains(text, case=False, regex=False) |
                     view.team.str.contains(text, case=False, regex=False)]
     metric = st.selectbox("Sort by", list(BAT_METRICS))
-    display = view.sort_values(BAT_METRICS[metric], ascending=metric == "K%", na_position="last")
-    display = display if metric == "K%" else display.iloc[::-1]
+    display = view.sort_values(BAT_METRICS[metric], ascending=(metric == "K%"), na_position="last")
     cols = ["player", "season", "team", "pa", "ab", "avg", "obp", "slg", "ops",
             "hr", "rbi", "sb", "bb", "so", "iso", "bb_pct", "k_pct"]
     st.caption("Rates BB%/K% require PA; missing 2024 PA values are left blank, never invented.")
     st.dataframe(display[cols], hide_index=True, use_container_width=True)
     download(display[cols], "lmb_hitter_search.csv", "⬇ Export selected hitters")
     if len(view):
-        graphic = view.nlargest(18, BAT_METRICS[metric]).sort_values(BAT_METRICS[metric])
+        graphic = display.head(18).iloc[::-1]
         fig = px.bar(graphic, x=BAT_METRICS[metric], y="player", color="season", orientation="h",
                      hover_data=["team", "ab"], title=f"Top available hitter records by {metric}")
         st.plotly_chart(fig, use_container_width=True)
